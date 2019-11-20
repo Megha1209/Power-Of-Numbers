@@ -284,7 +284,7 @@ private static final Color BG_COLOR = new Color(0xbbada0);//color class in awt p
       g.setColor(new Color(255, 255, 255, 30));
       g.fillRect(0, 0, getWidth(), getHeight());
       g.setColor(new Color(78, 139, 202));
-      g.setFont(new Font(FONT_NAME, Font.BOLD, 60));
+      g.setFont(new Font(FONT_NAME, Font.BOLD, 48));
       if (myWin) {
         g.drawString("You won!", 68, 150);
       }
