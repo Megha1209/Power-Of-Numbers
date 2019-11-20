@@ -1,30 +1,32 @@
 package game2048;
 import javax.swing.*;
-import java.awt.*;
+import java.awt.*;//API to develop GUI or window-based applications in java
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-public class Game2048 extends JPanel {
-private static final long serialVersionUID = 1L;
-private static final Color BG_COLOR = new Color(0xbbada0);
+//awt is abstract window toolkit Java AWT components are platform-dependent i.e. components are displayed according to the view of operating system. AWT is heavyweight i.e. its components are using the resources of OS.
+//Java Swing tutorial is a part of Java Foundation Classes (JFC) that is used to create window-based applications. It is built on the top of AWT (Abstract Windowing Toolkit) API and entirely written in java.
+//Unlike AWT, Java Swing provides platform-independent and lightweight components.
+public class Game2048 extends JPanel {//Jpanel is part of java swing package used for layout
+private static final long serialVersionUID = 1L;//here default unique id required for serialization(converting object to byte code(platform independent) and deserialization 
+private static final Color BG_COLOR = new Color(0xbbada0);//color class in awt package
   private static final String FONT_NAME = "Arial";
   private static final int TILE_SIZE = 64;
   private static final int TILES_MARGIN = 16;
-
+//Difference between jpanel and jframe : panel is visible whereas frame is not, panel is a form of container whereas frame provides a visible window
   private Tile[] myTiles;
   boolean myWin = false;
   boolean myLose = false;
   int myScore = 0;
 
   public Game2048() {
-    setPreferredSize(new Dimension(340, 400));
-    setFocusable(true);
-    addKeyListener(new KeyAdapter() {
+    setPreferredSize(new Dimension(340, 400));//setPrefferedSize in java swing package
+    setFocusable(true);//set the focus of the cpu on the current event
+    addKeyListener(new KeyAdapter() {//key adapter class for receiving keyboard events addkeylistener adds the specified key listener to receive key events fromthis component. 
       @Override
-      public void keyPressed(KeyEvent e) {
+      public void keyPressed(KeyEvent e) {//Key event takes place
         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
           resetGame();
         }
@@ -53,7 +55,7 @@ private static final Color BG_COLOR = new Color(0xbbada0);
           myLose = true;
         }
 
-        repaint();
+        repaint();//Invokes the paint function
       }
     });
     resetGame();
@@ -68,7 +70,7 @@ private static final Color BG_COLOR = new Color(0xbbada0);
       myTiles[i] = new Tile();
     }
     addTile();
-    addTile();
+    addTile();//two tiles added at the beginning
   }
 
   public void left() {
@@ -239,7 +241,6 @@ private static final Color BG_COLOR = new Color(0xbbada0);
     }
     return result;
   }
-
   private void setLine(int index, Tile[] re) {
     System.arraycopy(re, 0, myTiles, index * 4, 4);
   }
@@ -255,11 +256,11 @@ private static final Color BG_COLOR = new Color(0xbbada0);
       }
     }
   }
-
+//Graphics is the abstract class of awt package and Graphics2D inherits Graphics
   private void drawTile(Graphics g2, Tile tile, int x, int y) {
     Graphics2D g = ((Graphics2D) g2);
-    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-    g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
+//    g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+//    g.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_NORMALIZE);
     int value = tile.value;
     int xOffset = offsetCoors(x);
     int yOffset = offsetCoors(y);
@@ -283,7 +284,7 @@ private static final Color BG_COLOR = new Color(0xbbada0);
       g.setColor(new Color(255, 255, 255, 30));
       g.fillRect(0, 0, getWidth(), getHeight());
       g.setColor(new Color(78, 139, 202));
-      g.setFont(new Font(FONT_NAME, Font.BOLD, 48));
+      g.setFont(new Font(FONT_NAME, Font.BOLD, 60));
       if (myWin) {
         g.drawString("You won!", 68, 150);
       }
@@ -344,15 +345,14 @@ private static final Color BG_COLOR = new Color(0xbbada0);
   }
 
   public static void main(String[] args) {
-    JFrame game = new JFrame();
-    game.setTitle("2048 Game");
-    game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    JFrame game = new JFrame();//object of jframe is created 
+    game.setTitle("POWER OF NUMBERS");//title of frame is set
+    game.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);//closes the jframe as well as the java process if u remove it your java process wil still be running 
     game.setSize(340, 400);
     game.setResizable(false);
 
-    game.add(new Game2048());
-
-    game.setLocationRelativeTo(null);
+    game.add(new Game2048());//object of class is added to jframe
+    game.setLocationRelativeTo(null);//frame location will be at the centre of the screen
     game.setVisible(true);
   }
 }
